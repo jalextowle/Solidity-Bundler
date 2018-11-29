@@ -1,0 +1,16 @@
+{
+  "name": "solidity_bundler",
+  "version": "1.0.0",
+  "description": "An integrated development environment for Solidity",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alex Towle",
+  "license": "MIT",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "fs-extra": "^7.0.1",
+    "truffle": "^4.1.14"
+  }
+}
