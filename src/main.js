@@ -1,7 +1,7 @@
-const bundle = require('./bundle.js')
-const init = require('./init.js')
-const hooks = require('./hooks.js')
-const messages = require('./messages.js')
+const bundle = require('./lib/bundle.js')
+const init = require('./lib/init.js')
+const hooks = require('./lib/hooks.js')
+const messages = require('./utils/messages.js')
 
 function error_callback(message) {
   return (error) => {

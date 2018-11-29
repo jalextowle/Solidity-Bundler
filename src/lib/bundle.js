@@ -18,7 +18,7 @@ module.exports = {
    */
   add_src: (tool_name, locator, callback) => {
     if (locator) {
-      mkdirp(__dirname + '/.evmbundle/bundle/' + tool_name + '/src', (error) => {
+      mkdirp(strip_file_path(__dirname, 2) + '/.evmbundle/bundle/' + tool_name + '/src', (error) => {
         if (error) {
           callback(error)
         } else if (isUrl(locator)) {
@@ -73,7 +73,7 @@ function mkdirp(dirname, callback) {
 }
 
 function add_src_info_github(tool_name, locator, callback) {
-  exec('git clone ' + locator + ' ' + __dirname + '/.evmbundle/bundle/' + tool_name + '/src/', (stderr, stdout) => {
+  exec('git clone ' + locator + ' ' + strip_file_path(__dirname, 2) + '/.evmbundle/bundle/' + tool_name + '/src/', (stderr, stdout) => {
     if (stderr) {
       console.log('git error')
       callback(stderr)
@@ -85,7 +85,7 @@ function add_src_info_github(tool_name, locator, callback) {
 }
 
 function add_src_info_local(tool_name, locator, callback) {
-  let path = __dirname + '/.evmbundle/bundle/' + tool_name + '/path.txt' 
+  let path = strip_file_path(__dirname, 2) + '/.evmbundle/bundle/' + tool_name + '/path.txt' 
   fs.exists(path, exists => {
     if (exists) {
       fs.readFile(path, (error, contents) => {
