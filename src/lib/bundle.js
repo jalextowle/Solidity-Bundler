@@ -7,7 +7,7 @@ const { exec } = require('child_process')
  *   tool_name/            # Tool directory
  *     src/                # Source files
  *     url.txt             # Github URL
- *     path.txt            # File path 
+ *     path.txt            # File path -- This must be filled out for both github and sourcecode links
  */
 
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
    */
   add_src: (tool_name, locator, callback) => {
     if (locator) {
-      mkdirp(strip_file_path(__dirname, 2) + '/.evmbundle/bundle/' + tool_name + '/src', (error) => {
+      mkdirp(bundle_directory() + tool_name, (error) => {
         if (error) {
           callback(error)
         } else if (isUrl(locator)) {
@@ -31,7 +31,17 @@ module.exports = {
       callback('locator was not provided to +src')
     }
   }, 
+  is_installed: (tool_name, callback) => {
+    fs.exists(bundle_directory() + tool_name, exists => {
+      callback(exists)
+    })
+  }, 
+  run: (tool_name, args, callback) => {
+    
+  } 
 }
+
+function is_github_linked(tool_name, callback)
 
 function isUrl(locator) {
   return locator.slice(0, 4) === 'http' 
@@ -54,6 +64,10 @@ function conditional_mkdir(dirname, callback) {
   })
 }
 
+function bundle_directory() {
+  return strip_file_path(__dirname, 2) + '/.evmbundle/bundle/'
+}
+
 function mkdirp(dirname, callback) {
   let arr = dirname.split('/')
   let inner = (idx) => {
@@ -72,8 +86,10 @@ function mkdirp(dirname, callback) {
   inner(arr.length - 2)
 }
 
+// FIXME
 function add_src_info_github(tool_name, locator, callback) {
-  exec('git clone ' + locator + ' ' + strip_file_path(__dirname, 2) + '/.evmbundle/bundle/' + tool_name + '/src/', (stderr, stdout) => {
+  fs.mkdir(bundle_directory() + 
+  exec('git clone ' + locator + ' ' + bundle_directory() + tool_name + '/src/', (stderr, stdout) => {
     if (stderr) {
       console.log('git error')
       callback(stderr)
@@ -85,7 +101,7 @@ function add_src_info_github(tool_name, locator, callback) {
 }
 
 function add_src_info_local(tool_name, locator, callback) {
-  let path = strip_file_path(__dirname, 2) + '/.evmbundle/bundle/' + tool_name + '/path.txt' 
+  let path = bundle_directory() + tool_name + '/path.txt' 
   fs.exists(path, exists => {
     if (exists) {
       fs.readFile(path, (error, contents) => {

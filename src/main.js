@@ -25,8 +25,14 @@ switch(process.argv[2]) {
   case '+hook':
     hooks.add_hook(process.argv[3], error_callback(messages.hooks.add))
     break
+  case '-hook':
+    break
   case '+src':
     bundle.add_src(process.argv[3], process.argv[4], error_callback(messages.src.add))
+    break
+  case '-src':
+    break
+  case 'run': 
     break
   default: 
     usage()     

@@ -1,0 +1,14 @@
+{
+  "name": "audit_scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "describe.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alex Towle",
+  "license": "MIT",
+  "dependencies": {
+    "child_process": "^1.0.2"
+  }
+}
